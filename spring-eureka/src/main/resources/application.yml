@@ -1,6 +1,3 @@
-spring:
-  application:
-    name: spring-cloud-eureka
 server:
   port: 8761
 

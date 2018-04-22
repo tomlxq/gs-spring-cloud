@@ -1,0 +1,8 @@
+http://localhost:8080/login
+header:
+X_Auth_Token:eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsImNyZWF0ZWQiOjE1MjQzNjU2MjQ4MjQsImV4cCI6MTUyNDk3MDQyNH0.12v14-vRr7OSTOgveGluxSFF_DGv_4zNFHzedhJ4hEj9HbKZWjWGjNIz0HJ94yzq29rkVtG9sByEJHqAvsb6QQ
+Content-Type:application/json
+
+body:
+username:admin
+password:123456

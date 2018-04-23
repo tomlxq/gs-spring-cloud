@@ -1,4 +1,4 @@
-##创建服务注册中心
+## 创建服务注册中心
 在这里，我们需要用的的组件上Spring Cloud Netflix的Eureka ,eureka是一个服务注册和发现模块。
 
 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：
@@ -30,7 +30,7 @@ eureka:
 通过eureka.client.registerWithEureka：false和fetchRegistry：false来表明自己是一个eureka server.
 
 
-##创建一个服务提供者 (eureka client)
+## 创建一个服务提供者 (eureka client)
 当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。
 
 通过注解@EnableEurekaClient 表明自己是一个eurekaclient.

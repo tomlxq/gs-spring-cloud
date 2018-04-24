@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xqluo/SpringcloudConfig/
+          searchPaths: respo
+          username: lxqluo
+          password: angel918
+      label: master
+server:
+  port: 8888
+
+

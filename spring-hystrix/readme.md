@@ -82,6 +82,30 @@ public class HelloHystrixErr implements IHelloService {
     }
 }
 ````
+# Hystrix Dashboard (断路器：Hystrix 仪表盘)
+首选在build.gradle引入spring-cloud-starter-hystrix-dashboard的起步依赖：
+````
+ compile('org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard')
+ ````
+在主程序启动类中加入@EnableHystrixDashboard注解，开启hystrixDashboard：
+````
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableHystrix
+@EnableFeignClients
+@EnableHystrixDashboard
+public class SpringHystrixApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringHystrixApplication.class, args);
+    }
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+ ````
 
 # 参考资料
 * [circuit_breaker_hystrix](http://projects.spring.io/spring-cloud/spring-cloud.html#_circuit_breaker_hystrix_clients)

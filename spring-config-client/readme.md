@@ -55,4 +55,16 @@ eureka:
 这时我们去代码仓库将foo的值改为“foo = foo version 4 from dev”，即改变配置文件foo的值。如果是传统的做法，需要重启服务，才能达到配置文件的更新。此时，我们只需要发送post请求：http://localhost:8881/bus/refresh，你会发现config-client会重新读取配置文件
 
 `Fetching config from server at: http://192.168.1.100:8888/`
+这时我们再访问http://localhost:8881/hello 或者http://localhost:8882/hello 浏览器显示：
+
+`foo version 4 from dev`
+
+另外，/bus/refresh接口可以指定服务，即使用”destination”参数，比如 “/bus/refresh?destination=customers:**” 即刷新服务名为customers的所有服务，不管ip。
+
+
+当git文件更改的时候，通过pc端用post 向端口为8882的config-client发送请求/bus/refresh／；此时8882端口会发送一个消息，由消息总线向其他服务传递，从而使整个微服务集群都达到更新配置文件。
+
+
+## 参考资料
+[spring_cloud_bus](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_bus)
 

@@ -30,6 +30,8 @@ ext {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    // https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws
+    //compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '3.2.4'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 dependencyManagement {

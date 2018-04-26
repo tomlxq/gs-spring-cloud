@@ -1,3 +1,5 @@
+# 服务的注册与发现（Eureka）
+
 ## 创建服务注册中心
 在这里，我们需要用的的组件上Spring Cloud Netflix的Eureka ,eureka是一个服务注册和发现模块。
 
@@ -65,6 +67,13 @@ spring:
  application:
   name: service-hello
 ````
+
+需要指明spring.application.name,这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name 。
+
 这时打开 http://localhost:8762/hello?name=tom ，你会在浏览器上看到 :
 
-hello tom,i am from port:8762
+`hello tom,i am from port:8762`
+
+## 参考资料
+[springcloud eureka server 官方文档](http://projects.spring.io/spring-cloud/spring-cloud.html#spring-cloud-eureka-server)
+[springcloud eureka client 官方文档](http://projects.spring.io/spring-cloud/spring-cloud.html#_service_discovery_eureka_clients)

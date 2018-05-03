@@ -1,7 +1,8 @@
-# 简介
+# 第六篇: 分布式配置中心(Spring Cloud Config)
+## 简介
 在分布式系统中，由于服务数量巨多，为了方便服务配置文件统一管理，实时更新，所以需要分布式配置中心组件。在Spring Cloud中，有分布式配置中心组件spring cloud config ，它支持配置服务放在配置服务的内存中（即本地），也支持放在远程Git仓库中。在spring cloud config 组件中，分两个角色，一是config server，二是config client。
 
-# 构建Config Server
+## 构建Config Server
 创建一个spring-boot项目，取名为config-server,增加依赖:
 ````
 dependencies {
@@ -78,7 +79,7 @@ http请求地址和资源文件映射如下:
 * /{application}-{profile}.properties
 * /{label}/{application}-{profile}.properties
 
-# 构建一个config client
+## 构建一个config client
 
 重新创建一个springboot项目，取名为config-client,增加依赖:
 ````
@@ -139,5 +140,5 @@ public class SpringConfigClientApplication {
 
 这就说明，config-client从config-server获取了foo的属性，而config-server是从git仓库读取的
 
-# 参考资料
+## 参考资料
 [spring_cloud_config](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_config)

@@ -12,12 +12,18 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    username: guest
-    password: guest
+    username: tom
+    password: tom123
 server:
-  port: 8881
+  port: 8882
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8889/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

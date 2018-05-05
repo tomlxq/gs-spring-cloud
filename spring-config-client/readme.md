@@ -107,7 +107,7 @@ Spring boot 2.0的改动较大，/bus/refresh全部整合到actuador里面了，
 发送post请求 http://localhost:8881/actuator/bus-refresh
 后可以看到自动变了
 
-##　安装rabbitMq
+## 安装rabbitMq
 
 1. 下载地址
 
@@ -144,5 +144,8 @@ rabbitmq配置
 默认关闭了bus请求url，因此需要打开才能使用
 
 ## 参考资料
+
 [spring_cloud_bus](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_bus)
+
+[spring cloud学习(六) 配置中心-自动更新](https://www.cnblogs.com/andyfengzp/p/6835969.html)
 

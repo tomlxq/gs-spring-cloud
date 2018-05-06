@@ -29,33 +29,51 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 ````
-通过eureka.client.registerWithEureka：false和fetchRegistry：false来表明自己是一个eureka server.
-
+那么关于这几行注释，我说如下几点：
+1. server.port=8761表示设置该服务注册中心的端口号
+2. eureka.instance.hostname=localhost表示设置该服务注册中心的hostname
+3. eureka.client.register-with-eureka=false,由于我们目前创建的应用是一个服务注册中心，而不是普通的应用，默认情况下，这个应用会向注册中心（也是它自己）注册它自己，设置为false表示禁止这种默认行为
+4. eureka.client.fetch-registry=false,表示不去检索其他的服务，因为服务注册中心本身的职责就是维护服务实例，它也不需要去检索其他服务
 
 ## 创建一个服务提供者 (eureka client)
 当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。
 
 通过注解@EnableEurekaClient 表明自己是一个eurekaclient.
+
+SpringHelloApplication.java
 ````
 @SpringBootApplication
 @EnableEurekaClient
-@RestController
 public class SpringHelloApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SpringHelloApplication.class, args);
     }
-
+}
+````
+在Spring Boot的入口函数处，通过添加@EnableDiscoveryClient注解来激活Eureka中的DiscoveryClient实现
+HelloController.java
+````
+@RestController
+public class HelloController {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Value("${server.port}")
     String port;
+    @Autowired
+    private DiscoveryClient client;
 
-    @RequestMapping("/hi")
-    public String home(@RequestParam String name) {
-        return "hi " + name + ",i am from port:" + port;
+    @RequestMapping("/hello")
+    public String hello(@RequestParam String name) {
+        List<ServiceInstance> instances = client.getInstances("service-hello");
+        for (int i = 0; i < instances.size(); i++) {
+            logger.info("/hello,host:" + instances.get(i).getHost() + ",service_id:" + instances.get(i).getServiceId());
+        }
+        return "hello " + name + ",i am from port:" + port;
     }
 }
 ````
-需要在配置文件中注明自己的服务注册中心的地址，application.yml配置文件如下：
+这里创建服务之后，在日志中将服务相关的信息打印出来。
+
+配置服务名称和注册中心地址，application.yml配置文件如下：
 ````
 eureka:
  client:

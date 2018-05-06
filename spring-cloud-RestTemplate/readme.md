@@ -169,8 +169,8 @@ delete请求我们可以通过delete方法调用来实现，如下例子：
 ```
 delete方法也有几个重载的方法，不过重载的参数和前面基本一致，不赘述。
 
-
-
+## 参考资料：
+[RestTemplate的逆袭之路，从发送请求到负载均衡](https://mp.weixin.qq.com/s/uvJDmN2f9y3EEI6A3ss_aQ)
 
 
 

@@ -2,46 +2,47 @@
 在 Java 环境下使用 AES 加密，在密钥长度和字节填充方面有一些比较特殊的处理。
 
 1. 密钥长度问题
-    默认 Java 中仅支持 128 位密钥，当使用 256 位密钥的时候，会报告密钥长度错误
+默认 Java 中仅支持 128 位密钥，当使用 256 位密钥的时候，会报告密钥长度错误
 
-    Invalid AES key length
-   你需要下载一个支持更长密钥的包。这个包叫做 Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files 6，可以从这里下载，下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html
+`Invalid AES key length`
+你需要下载一个支持更长密钥的包。
+这个包叫做 Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files 8，
+可以从这里下载，下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
 
-   下载之后，解压后，可以看到其中包含两个包：
-
-    local_policy.jar
-
-    US_export_policy.jar
-
-    看一下你的 JRE 环境，将 JRE 环境中 lib\lib\security 中的同名包替换掉。
+下载之后，解压后，可以看到其中包含两个包：
+```
+local_policy.jar
+US_export_policy.jar
+```
+看一下你的 JRE 环境，将 JRE 环境中 lib\lib\security 中的同名包替换掉。
 
 2. Base64 问题
-     Apache 提供了 Base64 的实现，可以从这里下载。
+Apache 提供了 Base64 的实现，可以从这里下载。
 
-    下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
 
-     编码
+编码
 ````
 // 编码
 String asB64 = new Base64().encodeToString("some string".getBytes("utf-8"));
 System.out.println(asB64); // 输出为: c29tZSBzdHJpbmc=
 ````
-     解码   
+解码   
 ````
 // 解码
 byte[] asBytes = new Base64().getDecoder().decode("c29tZSBzdHJpbmc=");
 System.out.println(new String(asBytes, "utf-8")); // 输出为: some string
 ```` 
 
-     如果你已经使用 Java 8，那么就不需要再选用第三方的实现了，在 java.util 包中已经包含了 Base64 的处理。
+如果你已经使用 Java 8，那么就不需要再选用第三方的实现了，在 java.util 包中已经包含了 Base64 的处理。
 
-     编码的方式
+编码的方式
 ````
 // 编码
 String asB64 = Base64.getEncoder().encodeToString("some string".getBytes("utf-8"));
 System.out.println(asB64); // 输出为: c29tZSBzdHJpbmc=
 ````
-     解码处理
+解码处理
 ````
 // 解码
 byte[] asBytes = Base64.getDecoder().decode("c29tZSBzdHJpbmc=");
@@ -52,9 +53,10 @@ System.out.println(new String(asBytes, "utf-8")); // 输出为: some string
 PKCS #7 填充字符串由一个字节序列组成，每个字节填充该填充字节序列的长度。
 
 假定块长度为 8，数据长度为 9，
-          数据： FF FF FF FF FF FF FF FF FF
+```
+数据： FF FF FF FF FF FF FF FF FF
 PKCS7 填充： FF FF FF FF FF FF FF FF FF 07 07 07 07 07 07 07
-
+```
 简单地说, PKCS5, PKCS7和SSL3, 以及CMS(Cryptographic Message Syntax)
 
 有如下相同的特点:
@@ -74,7 +76,7 @@ PKCS7 填充： FF FF FF FF FF FF FF FF FF 07 07 07 07 07 07 07
 ![填充说明][1]
 
 
- 
+
 
 在PKCS# Padding中说:
 
@@ -111,4 +113,4 @@ cipher.Padding = PaddingMode.PKCS7;
 
 因为AES并没有64位的块, 如果采用PKCS5, 那么实质上就是采用PKCS7
 
-  [1]: http://zhiwei.li/text/wp-content/uploads/2009/05/pkcs7_padding.jpg
+[1]: http://zhiwei.li/text/wp-content/uploads/2009/05/pkcs7_padding.jpg

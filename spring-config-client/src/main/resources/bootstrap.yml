@@ -9,6 +9,9 @@ spring:
       discovery:
         enabled: true
         serviceId: config-server
+    bus:
+      trace:
+        enabled: true
   rabbitmq:
     host: localhost
     port: 5672
